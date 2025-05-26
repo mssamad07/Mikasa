@@ -18,7 +18,7 @@ from info import *
 from utils import temp
 from Script import script
 from plugins import web_server, check_expired_premium
-from HinataBot.Bot import Codeflix
+from HinataBot.Bot import ABS_Updates
 from HinataBot.util.keepalive import ping_server
 from HinataBot.Bot.clients import initialize_clients
 
