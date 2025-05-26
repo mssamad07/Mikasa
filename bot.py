@@ -18,9 +18,9 @@ from info import *
 from utils import temp
 from Script import script
 from plugins import web_server, check_expired_premium
-from LucyBot.Bot import Codeflix
-from LucyBot.util.keepalive import ping_server
-from LucyBot.Bot.clients import initialize_clients
+from HinataBot.Bot import Codeflix
+from HinataBot.util.keepalive import ping_server
+from HinataBot.Bot.clients import initialize_clients
 
 logging.config.fileConfig('logging.conf')
 logging.getLogger().setLevel(logging.INFO)
@@ -37,12 +37,12 @@ botStartTime = time.time()
 ppath = "plugins/*.py"
 files = glob.glob(ppath)
 
-async def Lucy_start():
+async def Hinata_start():
     print('\n')
-    print('\nInitalizing Lucy')
-    await Codeflix.start()
-    bot_info = await Codeflix.get_me()
-    Codeflix.username = bot_info.username
+    print('\nInitalizing Hinata')
+    await ABS_Updates.start()
+    bot_info = await ABS_Updates.get_me()
+    ABS_Updates.username = bot_info.username
     await initialize_clients()
     for name in files:
         with open(name) as a:
@@ -78,8 +78,8 @@ async def Lucy_start():
     temp.U_NAME = me.username
     temp.B_NAME = me.first_name
     temp.B_LINK = me.mention
-    Codeflix.username = '@' + me.username
-    Codeflix.loop.create_task(check_expired_premium(Codeflix))
+    ABS_Updates.username = '@' + me.username
+    ABS_Updates.loop.create_task(check_expired_premium(ABS_Updates))
     logging.info(f"{me.first_name} with Pyrogram v{__version__} (Layer {layer}) started on {me.username}.")
     logging.info(LOG_STR)
     logging.info(script.LOGO)
@@ -87,7 +87,7 @@ async def Lucy_start():
     today = date.today()
     now = datetime.now(tz)
     time = now.strftime("%H:%M:%S %p")
-    await Codeflix.send_message(chat_id=LOG_CHANNEL, text=script.RESTART_TXT.format(temp.B_LINK, today, time))
+    await ABS_Updates.send_message(chat_id=LOG_CHANNEL, text=script.RESTART_TXT.format(temp.B_LINK, today, time))
     app = web.AppRunner(await web_server())
     await app.setup()
     bind_address = "0.0.0.0"
@@ -97,6 +97,6 @@ async def Lucy_start():
 if __name__ == '__main__':
     loop = asyncio.get_event_loop()
     try:
-        loop.run_until_complete(Lucy_start())
+        loop.run_until_complete(Hinata_start())
     except KeyboardInterrupt:
         logging.info('Service Stopped Bye 👋')
